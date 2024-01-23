@@ -5,7 +5,6 @@ import { schemaFromExecutor } from '@graphql-tools/wrap'
 import { OperationTypeNode } from 'graphql'
 import { authenticateUser, logAccess, createUser } from './model'
 import jwt from 'jsonwebtoken'
-import { log } from 'console'
 
 const typeDefs = `#graphql
     type AccessLog {
