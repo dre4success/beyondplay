@@ -1,0 +1,111 @@
+.App {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.Header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  background-color: #282c34;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.button {
+  margin: 20px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: 1px solid #fdf0d1;
+  background-color: #643843;
+  color: white;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #3f4e4f;
+}
+
+.active {
+  background-color: #3f4e4f;
+  transform: translateY(1px);
+}
+
+.country-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.item-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.item-name {
+  color: #fdf0d1;
+  margin-bottom: 10px;
+}
+
+.item-info {
+  margin-bottom: 8px;
+}
+
+.language {
+  margin-top: 8px;
+}
+
+.login-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+button {
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
