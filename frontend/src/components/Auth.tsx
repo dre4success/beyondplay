@@ -90,7 +90,7 @@ export const Auth = ({
         </button>
       </form>
       <a
-        href=""
+        href="#"
         style={{ textAlign: 'center', color: '#643843', fontSize: '13px' }}
         onClick={() =>
           setAuthType(authType === 'register' ? 'login' : 'register')
