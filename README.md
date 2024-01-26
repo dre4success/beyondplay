@@ -36,4 +36,4 @@ http://localhost:3000
 Once opened, you can view the `continents` and the `countries` under them.
 You can also view starwars film details but you'd need to login or register. 
 
-![Screen Recording 2024-01-26 at 16 00 40](https://github.com/dre4success/beyondplay/assets/26462670/8c02e70a-0d5d-4438-bd69-f6938f9a7bd8)
+![Screen Recording 2024-01-26 at 16 00 40](https://github.com/dre4success/beyondplay/assets/26462670/a5f74fad-ccfa-4223-80c9-d17688d7f1d9)
