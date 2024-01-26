@@ -5,24 +5,12 @@ import { schemaFromExecutor } from '@graphql-tools/wrap'
 import { OperationTypeNode } from 'graphql'
 import { authenticateUser, logAccess, createUser } from './model'
 import jwt from 'jsonwebtoken'
+import { typeDefs } from './typeDefs'
+import dotenv from 'dotenv'
 
-const typeDefs = `#graphql
-    type AccessLog {
-        timestamp: String!
-        userId: ID!
-        operation: String!
-    }
+dotenv.config()
 
-    type Query {
-        accessLogs: [AccessLog]
-    }
-    type Mutation {
-        login(username: String!, password: String!): String
-        register(username: String!, password: String!): String
-    }
-`
-
-async function createRemoteSchema(url: string) {
+export async function createRemoteSchema(url: string) {
   try {
     const executor = buildHTTPExecutor({ endpoint: url })
     const schema = await schemaFromExecutor(executor)

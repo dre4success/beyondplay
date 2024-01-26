@@ -26,7 +26,11 @@ export async function setupDatabase() {
   return db
 }
 
-export async function createUser(db: Database, username: string, password: string) {
+export async function createUser(
+  db: Database,
+  username: string,
+  password: string
+) {
   try {
     const hashedPassword = await bcrypt.hash(password, 10)
     const result = await db.run(
@@ -57,7 +61,11 @@ export async function authenticateUser(
   return null // user not found or password incorrect
 }
 
-export async function logAccess(db: Database, userId: number, operation: string) {
+export async function logAccess(
+  db: Database,
+  userId: number,
+  operation: string
+) {
   await db.run(
     'INSERT INTO access_logs (user_id, operation, timestamp) VALUES (?, ?, ?)',
     [userId, operation, new Date().toISOString()]
