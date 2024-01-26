@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { gql } from '../__generated__'
+import { useMutation } from '@apollo/client'
 
 const LOGIN = gql(/* GraphQL */ `
   mutation Login($username: String!, $password: String!) {
@@ -8,8 +9,8 @@ const LOGIN = gql(/* GraphQL */ `
 `)
 
 const REGISTER = gql(/* GraphQL */ `
-  mutation Login($username: String!, $password: String!) {
-    login(username: $username, password: $password)
+  mutation Register($username: String!, $password: String!) {
+    register(username: $username, password: $password)
   }
 `)
 
@@ -17,32 +18,54 @@ type AuthProps = {
   authScreenVisible: boolean
   setAuthScreenVisible: (value: boolean) => void
 }
+
+type AuthType = 'login' | 'register'
 export const Auth = ({
   authScreenVisible,
   setAuthScreenVisible,
 }: AuthProps) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [authType, setAuthType] = useState<AuthType>('login')
+
+  const [login, { loading, data }] = useMutation(LOGIN, {
+    variables: { username: username, password: password },
+  })
+
+  const [register, { loading: registerLoading, data: registerData }] =
+    useMutation(REGISTER, {
+      variables: { username: username, password: password },
+    })
+
+  useEffect(() => {
+    if (data || registerData) {
+      localStorage.setItem(
+        'jwtToken',
+        data?.login || registerData?.register || ''
+      )
+      window.location.reload()
+    }
+  }, [data, registerData])
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
-    // Add your login logic here, e.g., make an API call
-    console.log('Username:', username)
-    console.log('Password:', password)
-    // Reset the form after submission
+    if (authType === 'register') {
+      register()
+    } else {
+      login()
+    }
     setUsername('')
     setPassword('')
-    setAuthScreenVisible(false)
   }
 
+  if (loading || registerLoading) return <p>Loading...</p>
   return (
     <div
       className="login-container"
       style={{ display: authScreenVisible ? 'visible' : 'hidden' }}
     >
-      <h2>Login</h2>
+      <p>{authType === 'register' ? 'Register' : 'Login'}</p>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username:</label>
         <input
           type="text"
           id="username"
@@ -52,8 +75,6 @@ export const Auth = ({
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-
-        <label htmlFor="password">Password:</label>
         <input
           type="password"
           id="password"
@@ -64,8 +85,21 @@ export const Auth = ({
           required
         />
 
-        <button type="submit">Login</button>
+        <button className="button register" type="submit">
+          {authType === 'register' ? 'Register' : 'Login'}
+        </button>
       </form>
+      <a
+        href=""
+        style={{ textAlign: 'center', color: '#643843', fontSize: '13px' }}
+        onClick={() =>
+          setAuthType(authType === 'register' ? 'login' : 'register')
+        }
+      >
+        {authType === 'login'
+          ? `Don't have an account? Register`
+          : 'Already have an account? Login'}
+      </a>
     </div>
   )
 }

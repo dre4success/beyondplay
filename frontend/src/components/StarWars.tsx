@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client'
+import { useLazyQuery, useQuery } from '@apollo/client'
 import { gql } from '../__generated__'
 import { useState } from 'react'
 import { Auth } from './Auth'
@@ -24,31 +24,38 @@ export const StarWarsFilms = ({
   setVisibleComponent,
   visibleComponent,
 }: StarWarsFilmsProps) => {
-  const [showFilms, setShowFilms] = useState(false)
   const [authScreenVisible, setAuthScreenVisible] = useState(false)
+  const [getFilms, { loading, data }] = useLazyQuery(STAR_WARS_FILMS)
 
   const jwtToken = localStorage.getItem('jwtToken')
 
   const handleShowFilms = () => {
+    setVisibleComponent('starWars')
     if (jwtToken) {
-      setShowFilms(true)
+      getFilms()
     } else {
       setAuthScreenVisible(true)
     }
   }
 
-  const { loading, data } = useQuery(STAR_WARS_FILMS)
   if (loading) return <p>Loading...</p>
   return (
     <div>
       <button
         className="button"
         onClick={() => handleShowFilms()}
-        style={{ display: data ? 'none' : 'block' }}
+        style={{
+          display: data && visibleComponent !== 'continents' ? 'none' : 'flex',
+        }}
       >
         View Star Wars Films
       </button>
-      <div className="country-list-container">
+      <div
+        style={{
+          display: visibleComponent === 'continents' ? 'none' : 'flex',
+        }}
+        className="content-list-container"
+      >
         {data?.allFilms?.films?.map((film) => (
           <div key={film?.title} className="item-card">
             <h4 className="item-name">{film?.title}</h4>
@@ -57,7 +64,7 @@ export const StarWarsFilms = ({
           </div>
         ))}
       </div>
-      {authScreenVisible && (
+      {authScreenVisible && visibleComponent !== 'continents' && (
         <Auth
           authScreenVisible={authScreenVisible}
           setAuthScreenVisible={setAuthScreenVisible}

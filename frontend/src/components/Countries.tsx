@@ -27,7 +27,7 @@ export const Countries = ({ code }: CountriesProps) => {
 
   if (loading) return <p>Loading...</p>
   return (
-    <div className="country-list-container">
+    <div className="content-list-container">
       {data?.countries.map((country) => (
         <div key={country.name} className="item-card">
           <h4 className="item-name">{country.name}</h4>

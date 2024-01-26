@@ -28,13 +28,23 @@ export const Continents = ({
     <div>
       <button
         className="button"
-        onClick={() => getContinents()}
-        style={{ display: data ? 'none' : 'block' }}
+        onClick={() => {
+          getContinents()
+          setVisibleComponent('continents')
+        }}
+        style={{
+          display: data && visibleComponent !== 'starWars' ? 'none' : 'flex',
+        }}
       >
         View All Continents
       </button>
       {!loading && data && (
-        <div className="button-container">
+        <div
+          style={{
+            display: visibleComponent === 'starWars' ? 'none' : 'flex',
+          }}
+          className="button-container"
+        >
           {data.continents.map((continent) => (
             <React.Fragment key={continent.code}>
               <button
@@ -50,7 +60,9 @@ export const Continents = ({
           ))}
         </div>
       )}
-      {showCountries && <Countries code={code} />}
+      {showCountries && visibleComponent !== 'starWars' && (
+        <Countries code={code} />
+      )}
     </div>
   )
 }

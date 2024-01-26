@@ -16,6 +16,14 @@
   justify-content: center;
   padding: 10px 0;
   background-color: #282c34;
+  margin-top: 20px;
+}
+
+.logout {
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  right: 0;
 }
 
 .button-container {
@@ -31,6 +39,10 @@
   background-color: #643843;
   color: white;
   cursor: pointer;
+  padding: 10px;
+}
+.register {
+  margin: 20px 0;
 }
 
 .button:hover {
@@ -42,11 +54,13 @@
   transform: translateY(1px);
 }
 
-.country-list-container {
+.content-list-container {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
+  margin-top: 20px;
+  max-width: 70vw;
 }
 
 .item-card {
@@ -76,6 +90,10 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
+  color: #643843;
+  max-width: 200px;
+  position: relative;
+  left: 10px;
 }
 
 form {
@@ -94,18 +112,5 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
-}
-
-button {
-  background-color: #007bff;
-  color: #ffffff;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-button:hover {
-  background-color: #0056b3;
+  margin: 10px 0;
 }
